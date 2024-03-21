@@ -7,7 +7,7 @@ import FormatValues as FV
 
 # Define program constants.
 # Open the defaults file and read the values into variables
-f = open('Defaults.dat', 'r')
+f = open('Defaluts.dat', 'r')
 POLICY_NUMBER = int(f.readline())
 BASIC_PREMIUM = float(f.readline())
 ADDITIONAL_CARS_DISCOUNT = float(f.readline())
@@ -30,6 +30,8 @@ while True:
 
     # Gather user inputs.
     CustomerFirstName       = input("Please enter customer's first name (\"END\" to finish): ")
+    if CustomerFirstName == "END":
+        break
     CustomerLastName        = input("Please enter customer's last name:  ")
     CustomerAddress         = input("Please enter customer's address:    ")
     CustomerCity            = input("Please enter customer's city:       ")
@@ -65,5 +67,4 @@ while True:
     ClaimDate = input("Please input the claim date:  ")
     AllPreviousCustomerClaims = input("Please enter the claim amount of all previous claims for the customer")
 
-    if CustomerFirstName == "END":
-        break
+
