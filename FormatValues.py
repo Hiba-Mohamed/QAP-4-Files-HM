@@ -76,3 +76,18 @@ def FDateL(DateValue):
     DateValueStr = DateValue.strftime("%A, %B %d, %Y")
 
     return DateValueStr
+
+def FFullName(FirstName, LastName):
+    # Function to concatinate full name
+
+    FullName = f"{FirstName} {LastName}"
+
+    return FullName
+
+def FAddress(Street, City, Province, PostalCode):
+    # Function to format address that does not include country
+
+    FullAddress = (f"{Street}"
+                   f"{City}, {Province}"
+                   f"{PostalCode}")
+    return FullAddress
