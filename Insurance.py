@@ -24,6 +24,10 @@ CURRENT_DATE = datetime.datetime.today
 
 
 # Define program functions.
+def ParseDateYYYYMMDD(string):
+    # function to parse a string into a datetime object
+    ParsedDate = datetime.strptime(string, "%Y/%m/%d")
+    return ParsedDate
 
 # Main program starts here.
 while True:
@@ -65,9 +69,16 @@ while True:
             print("Error - invalid payment method.")
         else:
             break
-    ClaimNumber               = input("Please enter the claim number: ")
-    ClaimDate                 = input("Please input the claim date:  ")
-    AllPreviousCustomerClaims = input("Please enter the claim amount of all previous claims for the customer")
+
+    while True:
+        PreviousClaimsData =[]
+        ClaimNumber               = int(input("Please enter the claim number (0000) when finished: "))
+        if ClaimNumber == 00000:
+            break
+        ClaimDate                 = input("Please input the claim date (YYYY/MM/DD):  ")
+        ParseDateYYYYMMDD(ClaimDate)
+        ClaimAmount               = float(input("Please enter the claim amount: "))
+        PreviousClaimsData.append((ClaimNumber, ClaimDate, ClaimAmount))
 
     # Calculations 
     BasicCarPremium               = BASIC_PREMIUM
@@ -91,6 +102,9 @@ while True:
     Taxes                       = TotalInsurancePremiumPreTax * HST_RATE
     TotalCosts                  = TotalInsurancePremiumPreTax + Taxes
 
+    if PaymentPreference != "Full":
+        TotalCosts = MONTHLY_PAYMENT_PROCESSING_FEE + TotalCosts
+
     # Payment breakdown
     if PaymentPreference == "Full":
         MonthlyPaymentAmount = 0.00
@@ -111,11 +125,45 @@ while True:
     print(f" Phone number: {CustomerPhoneNumber:<14s} ")
     print(f"")
     print(f"----------------------------------------------------------")
-    print(f" Number of cars:              Extra liability:    ")
-    print(f" Glass coverage:              Loaner car: ")
+    print(f" Number of cars: {NumberOfCarsToBeInsured:>2d}              Extra liability: {ExtraLiability:<1s}   ")
+    print(f" Glass coverage: {OptionalGlassCoverage:<1s}             Loaner car: {OptionalLoanerCar:<1s}")
     print(f"----------------------------------------------------------")
     print(f"")
-    print(f" Payment plan: ")
+    if PaymentPreference == "Full" or PaymentPreference == "Monthly":
+        print(f" Payment plan: {PaymentPreference}")
+    if PaymentPreference == "Downpay":
+        print(f" Payment plan: Monthly with down payment ")
     print(f"----------------------------------------------------------")
+    print(f" Car premium cost             ") 
+    print(f" Extra liability cost         ") 
+    print(f" Glass coverage cost          ") 
+    print(f" Optional loaner car cost     ") 
+    print(f"----------------------------------------------------------")
+    print(f" Subtotal                     ") 
+    print(f" Taxes                        ") 
+    print(f"----------------------------------------------------------")
+    if PaymentPreference != "Full":
+        print(f" Monthly processing fee   ")
+    print(f" Total                        ") 
+    print(f"----------------------------------------------------------")
+    print(f"")
+    if PaymentPreference !="Full":
+        print(f"  Monthly payment      # of months      1st payment due ")
+        print(f"----------------------------------------------------------")
+        print(f"  {FV.FDollar2(MonthlyPaymentAmount):>10s}   8   {FV.FDateM(DateOfFirstPayment)}")
+    print(f"----------------------------------------------------------")
+    print(f"----------------------------------------------------------")
+    print(" Previous customer claims: ")
+    print("         Claim #       Claim Date        Amount")
+    print(f"     ---------------------------------------------")
+    for claim in PreviousClaimsData:
+        print(f" {claim[0]:>5}   {FV.FDateM(claim[1]):>10s}  {FV.FDollar2:>10s}")
+    print(f"     ---------------------------------------------")
+
+
+
+
+
+
 
 
