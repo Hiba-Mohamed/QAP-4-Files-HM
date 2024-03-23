@@ -83,7 +83,6 @@ while True:
         ClaimDateParsed = ParseDateYYYYMMDD(ClaimDate)
         ClaimAmount               = float(input("Please enter the claim amount: "))
         PreviousClaimsData.append((ClaimNumber, ClaimDateParsed, ClaimAmount))
-    print(PreviousClaimsData)
 
     # Calculations 
     BasicCarPremium               = BASIC_PREMIUM
@@ -126,13 +125,15 @@ while True:
     # Display results
     print(f"")
     print(f"")
-    print(f"       One Stop  Insurance  Company")
+    print(f"      One  Stop  Insurance  Company")
+    print("")
+    print(f" Invoice Date:  {FV.FDateS(CURRENT_DATE):>10s}")
     print(f" Customer name: {CustomerFullName:<22s} ")
     print(f" Address:       {CustomerFormattedAddress:<} ")
     print(f" Phone number:  {CustomerPhoneNumber:<14s} ")
     print(f"")
     print(f" Number of cars: {NumberOfCarsToBeInsured:<2d}     Extra liability: {ExtraLiability:<1s}   ")
-    print(f" Glass coverage: {OptionalGlassCoverage:<1s}       Loaner car: {OptionalLoanerCar:<1s}")
+    print(f" Glass coverage: {OptionalGlassCoverage:<1s}      Loaner car:      {OptionalLoanerCar:<1s}")
     print(f"")
     if PaymentPreference == "Full" or PaymentPreference == "Monthly":
         print(f" Payment plan: {PaymentPreference}")
@@ -157,7 +158,6 @@ while True:
         print(f"  payment     months         due ")
         print(f"---------------------------------------")
         print(f" {FV.FDollar2(MonthlyPaymentAmount):>10s}     8       {FV.FDateS(DateOfFirstPayment)}")
-    print(f"")
     if len(PreviousClaimsData) !=0:
         print(f"")
         print(" Previous customer claims: ")
