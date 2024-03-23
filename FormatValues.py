@@ -87,7 +87,5 @@ def FFullName(FirstName, LastName):
 def FAddress(Street, City, Province, PostalCode):
     # Function to format address that does not include country
 
-    FullAddress = (f"{Street}"
-                   f"{City}, {Province}"
-                   f"{PostalCode}")
+    FullAddress = (f"{Street}, {City}, {Province} {PostalCode}")
     return FullAddress
